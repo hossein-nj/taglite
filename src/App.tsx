@@ -19,7 +19,6 @@ function App() {
             onChange={setTags}
             acceptOnBlur
             clearable
-            autoFocus
           />
         </div>
       </div>
