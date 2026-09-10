@@ -559,6 +559,7 @@ export default forwardRef<
         value,
         onChange,
 
+        direction = 'ltr',
         theme = 'light',
 
         tagIcon,
@@ -841,6 +842,7 @@ export default forwardRef<
 
     return (
         <div
+            dir={direction}
             style={themeStyles[theme]}
             className={`taglite-root ${disabled ? 'taglite-root--disabled' : ''} ${className}`}
             onClick={handleRootClick}

@@ -24,6 +24,7 @@ export interface SimpleTagInputProps
     value: string[]
     onChange: (tags: string[]) => void
 
+    direction?: 'ltr' | 'rtl'
     theme?: SimpleTagInputTheme
 
     placeholder?: string
