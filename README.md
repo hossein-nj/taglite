@@ -7,25 +7,25 @@ A lightweight, dependency-free React tag input component.
 ## Themes
 
 ### Default
-![Default theme](./assets/Demo-Light.png)
+![Default theme](./assets/Demo-Light.jpg)
 
 ### Dark
-![Dark theme](./assets/Demo-Dark.png)
+![Dark theme](./assets/Demo-Dark.jpg)
 
 ### Cupcake
-![Cupcake theme](./assets/Demo-Cupcake.png)
+![Cupcake theme](./assets/Demo-Cupcake.jpg)
 
 ### Emerald
-![Emerald theme](./assets/Demo-Emerald.png)
+![Emerald theme](./assets/Demo-Emerald.jpg)
 
 ### Corporate
-![Corporate theme](./assets/Demo-Corporate.png)
+![Corporate theme](./assets/Demo-Corporate.jpg)
 
 ### Retro
-![Retro theme](./assets/Demo-Retro.png)
+![Retro theme](./assets/Demo-Retro.jpg)
 
 ### Dracula
-![Dracula theme](./assets/Demo-Dracula.png)
+![Dracula theme](./assets/Demo-Dracula.jpg)
 
 ## Features
 
