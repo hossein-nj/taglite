@@ -1,8 +1,31 @@
-# TagLite
+# taglite
 
-A lightweight, dependency-free React tag input component built with TypeScript.
+A lightweight, dependency-free React tag input component.
 
-`SimpleTagInput` is a small and customizable component for creating, validating, normalizing, removing, and clearing tags while keeping the tag value fully controlled by the parent component.
+![taglite demo](./assets/taglite-demo.gif)
+
+## Themes
+
+### Default
+![Default theme](./assets/Demo-Light.png)
+
+### Dark
+![Dark theme](./assets/Demo-Dark.png)
+
+### Cupcake
+![Cupcake theme](./assets/Demo-Cupcake.png)
+
+### Emerald
+![Emerald theme](./assets/Demo-Emerald.png)
+
+### Corporate
+![Corporate theme](./assets/Demo-Corporate.png)
+
+### Retro
+![Retro theme](./assets/Demo-Retro.png)
+
+### Dracula
+![Dracula theme](./assets/Demo-Dracula.png)
 
 ## Features
 
@@ -1124,7 +1147,7 @@ const props: SimpleTagInputProps = {
 | `value` | `string[]` | required | Controlled tag list |
 | `onChange` | `(tags: string[]) => void` | required | Called when tags change |
 | `direction` | `'ltr' \| 'rtl'` | `'ltr'` | Text direction |
-| `theme` | `ProductTagsInputTheme` | `'light'` | Built-in visual theme |
+| `theme` | `SimpleTagInputTheme` | `'light'` | Built-in visual theme |
 | `placeholder` | `string` | `'Add a new tag...'` | Input placeholder |
 | `hintText` | `ReactNode` | `'Press Enter to add a tag'` | Focus helper text |
 | `separators` | `string[]` | `['Enter', ',']` | Keys that create tags |
