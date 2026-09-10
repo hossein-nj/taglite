@@ -1,0 +1,191 @@
+.taglite-root,
+.taglite-root *,
+.taglite-root *::before,
+.taglite-root *::after {
+    box-sizing: border-box;
+}
+
+.taglite-root {
+    position: relative;
+    width: 100%;
+    min-height: 3.5rem;
+    overflow: hidden;
+    border: 1px solid var(--pti-border);
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--pti-radius);
+    background: var(--pti-background);
+    color: var(--pti-text);
+    box-shadow: var(--pti-shadow);
+    transition: all 500ms;
+}
+
+.taglite-root:focus-within {
+    border-color: var(--pti-border-focus);
+    box-shadow: var(--pti-focus-shadow);
+}
+
+.taglite-root--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.taglite-liquid-light {
+    position: absolute;
+    top: -100%;
+    left: -50%;
+    width: 100%;
+    height: 300%;
+    pointer-events: none;
+    border-radius: 9999px;
+    background: radial-gradient(
+        circle,
+        var(--pti-ring),
+        transparent 65%
+    );
+    opacity: 0;
+    scale: 0.75;
+    transform: translate(-50%, -50%);
+    transition: all 700ms ease-out;
+}
+
+.taglite-root:focus-within .taglite-liquid-light {
+    top: 50%;
+    left: 50%;
+    scale: 1;
+    opacity: 0.2;
+}
+
+.taglite-content {
+    position: relative;
+    display: flex;
+    min-height: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.taglite-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border: 1px solid var(--pti-tag-border);
+    padding: 0.375rem 0.625rem;
+    border-radius: var(--pti-tag-radius);
+    background: var(--pti-tag-background);
+    color: var(--pti-tag-text);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1rem;
+    transition: color 300ms ease-out, background-color 300ms ease-out,
+        border-color 300ms ease-out;
+}
+
+.taglite-tag:hover {
+    border-color: var(--pti-tag-hover-border);
+    background: var(--pti-tag-hover-background);
+}
+
+.taglite-tag-icon,
+.taglite-remove-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.taglite-tag-label {
+    max-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.taglite-remove-button,
+.taglite-clear-button {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    transition: color 200ms ease, background-color 200ms ease;
+}
+
+.taglite-remove-button {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 9999px;
+}
+
+.taglite-remove-button:hover {
+    background: var(--pti-remove-hover-background);
+}
+
+.taglite-remove-button:disabled,
+.taglite-clear-button:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.taglite-input {
+    min-width: 8.75rem;
+    flex: 1;
+    border: 0;
+    padding: 0.375rem 0.25rem;
+    outline: none;
+    background: transparent;
+    color: var(--pti-text);
+    font: inherit;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    transition: color 300ms;
+}
+
+.taglite-input::placeholder {
+    color: var(--pti-placeholder);
+}
+
+.taglite-input:disabled {
+    cursor: not-allowed;
+}
+
+.taglite-clear-button {
+    position: absolute;
+    inset-inline-end: 0.75rem;
+    top: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    transform: translateY(-50%);
+    border-radius: 9999px;
+    color: var(--pti-remove-text);
+}
+
+.taglite-clear-button:hover {
+    background: var(--pti-remove-hover-background);
+    color: var(--pti-remove-hover-text);
+}
+
+.taglite-clear-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+}
+
+.taglite-hint {
+    position: relative;
+    margin-top: 0.375rem;
+    padding: 0 0.25rem;
+    pointer-events: none;
+    color: var(--pti-muted-text);
+    font-size: 10px;
+    opacity: 0;
+    transform: translateY(0.25rem);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.taglite-root:focus-within .taglite-hint {
+    opacity: 1;
+    transform: translateY(0);
+}

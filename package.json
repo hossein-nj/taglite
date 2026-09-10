@@ -1,0 +1,68 @@
+{
+  "name": "taglite",
+  "version": "0.1.0",
+  "description": "A lightweight, dependency-free React tag input component.",
+  "keywords": [
+    "react",
+    "tag-input",
+    "tags-input",
+    "typescript",
+    "component"
+  ],
+  "homepage": "https://github.com/hossein-nj/taglite#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hossein-nj/taglite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hossein-nj/taglite/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/taglite.cjs",
+  "module": "./dist/taglite.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/taglite.js",
+      "require": "./dist/taglite.cjs"
+    },
+    "./style.css": "./dist/taglite.css",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:lib": "vite build --mode lib && tsc -p tsconfig.lib.json",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals": "^17.12.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.69.0",
+    "vite": "^8.3.0"
+  }
+}
