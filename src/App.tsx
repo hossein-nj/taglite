@@ -19,6 +19,7 @@ function App() {
             onChange={setTags}
             acceptOnBlur
             clearable
+            
           />
         </div>
       </div>

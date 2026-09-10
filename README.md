@@ -666,10 +666,6 @@ Available scripts:
 
 There is currently no automated test runner or <code>npm test</code> script. When behavior grows beyond manual verification, add focused component tests covering tag creation with Enter/comma, duplicate handling, removal, keyboard behavior, focus states, and each supported theme.
 
-## Design philosophy
-
-<code>SimpleTagInput</code> focuses on the core tag-input experience instead of becoming a full autocomplete or drag-and-drop system. The goal is a small component with a simple API, predictable controlled behavior, useful customization hooks, good keyboard and paste support, and minimal runtime overhead.
-
 ## License
 
 MIT
