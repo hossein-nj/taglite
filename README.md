@@ -1,72 +1,76 @@
 # taglite
 
-A lightweight, dependency-free React tag input component.
+<div align="center">
 
-![taglite demo](./assets/taglite-demo.gif)
+**A lightweight, dependency-free React tag input with a focused API and flexible interactions.**
 
-## Themes
+[![npm version](https://img.shields.io/npm/v/taglite?style=flat-square&color=cb3837)](https://www.npmjs.com/package/taglite)
+[![npm downloads](https://img.shields.io/npm/dm/taglite?style=flat-square&color=blue)](https://www.npmjs.com/package/taglite)
+[![React](https://img.shields.io/badge/React-%3E%3D18-61dafb?style=flat-square&logo=react&logoColor=20232a)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-first-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
 
-### Default
-![Default theme](./assets/Demo-Light.jpg)
+<br />
 
-### Dark
-![Dark theme](./assets/Demo-Dark.jpg)
+<img src="./assets/taglite-demo.gif" alt="taglite demo showing tags being added to the input" width="820" />
 
-### Cupcake
-![Cupcake theme](./assets/Demo-Cupcake.jpg)
+<br />
 
-### Emerald
-![Emerald theme](./assets/Demo-Emerald.jpg)
+<sub>Type a tag, press Enter or comma, and keep going.</sub>
 
-### Corporate
-![Corporate theme](./assets/Demo-Corporate.jpg)
+</div>
 
-### Retro
-![Retro theme](./assets/Demo-Retro.jpg)
+<code>taglite</code> is a controlled React component for collecting, validating, normalizing, and removing tags. It has zero runtime dependencies, ships with TypeScript types, and supports keyboard-first workflows without imposing an autocomplete or form framework.
 
-### Dracula
-![Dracula theme](./assets/Demo-Dracula.jpg)
+## Why taglite?
 
-## Features
+- **Small by default** — zero runtime dependencies and no animation or icon libraries.
+- **Controlled and predictable** — the parent owns the tag array through <code>value</code> and <code>onChange</code>.
+- **Flexible input rules** — custom separators, duplicate handling, normalization, validation, limits, and paste parsing.
+- **Ready for real interfaces** — built-in themes, RTL support, read-only and disabled states, native input attributes, and forwarded refs.
+- **Easy to extend** — custom tag, remove, and clear icons plus lifecycle callbacks for additions, removals, invalid tags, and clearing.
 
-- Fully controlled `value` with `onChange`
-- TypeScript-first API
-- Zero runtime dependencies
-- Lightweight and performance-conscious implementation
-- Customizable themes
-- Custom tag and remove icons
-- Configurable keyboard separators
-- Maximum tag limit
-- Optional duplicate tags
-- Tag normalization
-- Tag validation with validation reasons
-- `onTagAdd`, `onTagRemove`, and `onInvalidTag` callbacks
-- Optional add-on-blur behavior
-- Multi-tag paste parsing
-- Optional clear-all button
-- `readOnly` and `disabled` support
-- Forwarded ref to the native `<input>`
-- Native input attributes supported through `InputHTMLAttributes<HTMLInputElement>`
+## Built-in themes
+
+The component includes eight theme values: <code>default</code> (a backward-compatible alias of <code>light</code>), <code>light</code>, <code>dark</code>, <code>cupcake</code>, <code>emerald</code>, <code>corporate</code>, <code>retro</code>, and <code>dracula</code>.
+
+<table>
+  <tr>
+    <td align="center"><strong>Light</strong><br /><img src="./assets/Demo-Light.jpg" alt="taglite light theme" width="500" /></td>
+    <td align="center"><strong>Dark</strong><br /><img src="./assets/Demo-Dark.jpg" alt="taglite dark theme" width="500" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Cupcake</strong><br /><img src="./assets/Demo-Cupcake.jpg" alt="taglite cupcake theme" width="500" /></td>
+    <td align="center"><strong>Emerald</strong><br /><img src="./assets/Demo-Emerald.jpg" alt="taglite emerald theme" width="500" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Corporate</strong><br /><img src="./assets/Demo-Corporate.jpg" alt="taglite corporate theme" width="500" /></td>
+    <td align="center"><strong>Retro</strong><br /><img src="./assets/Demo-Retro.jpg" alt="taglite retro theme" width="500" /></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Dracula</strong><br /><img src="./assets/Demo-Dracula.jpg" alt="taglite dracula theme" width="500" /></td>
+    <td align="center"><em>All themes use the same component API.</em></td>
+  </tr>
+</table>
 
 ## Installation
 
-```bash
+~~~bash
 npm install taglite
-```
+~~~
 
-Or:
+Or use another package manager:
 
-```bash
+~~~bash
 yarn add taglite
-```
-
-```bash
 pnpm add taglite
-```
+~~~
 
-## Basic Usage
+<code>taglite</code> supports React <code>&gt;=18</code> and includes its own public TypeScript declarations.
 
-```tsx
+## Quick start
+
+~~~tsx
 import { useState } from 'react'
 import { SimpleTagInput } from 'taglite'
 import 'taglite/style.css'
@@ -78,50 +82,137 @@ export default function Example() {
         <SimpleTagInput
             value={tags}
             onChange={setTags}
+            placeholder="Add a technology..."
         />
     )
 }
-```
+~~~
 
-The component is controlled through `value` and `onChange`. The tag array is never stored internally.
+The component is controlled through <code>value</code> and <code>onChange</code>; the tag array is never stored internally. The text currently being typed is temporary UI state managed by the component.
 
-The text currently being typed inside the input is temporary UI state and is managed internally by the component.
+## Common interactions
 
----
+### Add tags with the keyboard
 
-## How Tags Are Added
+By default, pressing <code>Enter</code> or <code>,</code> converts the current input into a tag. Empty values are ignored.
 
-By default, pressing `Enter` or `,` converts the current input into a tag.
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
+    separators={['Enter', ',']}
 />
-```
+~~~
 
-Examples:
+~~~text
+React + Enter  ->  React
+Next.js + ,    ->  Next.js
+~~~
 
-```text
-React + Enter  →  React
-Next.js + ,    →  Next.js
-```
+### Paste multiple tags
 
-Empty values are ignored.
+Comma-separated, newline-separated, and mixed input can be pasted in one operation:
 
----
+~~~text
+React, Next.js
+TypeScript, Tailwind CSS
+~~~
 
-## Props
+~~~ts
+['React', 'Next.js', 'TypeScript', 'Tailwind CSS']
+~~~
 
-### `value`
+The same processing pipeline applies to pasted values:
 
-```ts
+~~~text
+normalize -> validate -> duplicate check -> maxTags -> onChange
+~~~
+
+### Combine features
+
+~~~tsx
+import { useState } from 'react'
+import { SimpleTagInput } from 'taglite'
+
+export default function Example() {
+    const [tags, setTags] = useState<string[]>([])
+
+    return (
+        <SimpleTagInput
+            value={tags}
+            onChange={setTags}
+            placeholder="Add a technology..."
+            hintText="Enter, comma, or paste multiple tags"
+            separators={['Enter', ',']}
+            maxTags={8}
+            allowDuplicates={false}
+            normalizeTag={tag => tag.trim().toLowerCase()}
+            validateTag={tag =>
+                tag.length >= 2
+                    ? true
+                    : 'Tag must contain at least 2 characters'
+            }
+            onInvalidTag={(tag, reason) => {
+                console.log('Invalid tag:', tag, reason)
+            }}
+            onTagAdd={(tag, index) => {
+                console.log('Added:', tag, index)
+            }}
+            onTagRemove={(tag, index) => {
+                console.log('Removed:', tag, index)
+            }}
+            acceptOnBlur
+            clearable
+            onClear={() => console.log('All tags cleared')}
+            theme="dark"
+        />
+    )
+}
+~~~
+
+## API reference
+
+### Core props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| <code>value</code> | <code>string[]</code> | required | Controlled tag list |
+| <code>onChange</code> | <code>(tags: string[]) =&gt; void</code> | required | Called when tags change |
+| <code>direction</code> | <code>'ltr' or 'rtl'</code> | <code>'ltr'</code> | Text direction |
+| <code>theme</code> | <code>SimpleTagInputTheme</code> | <code>'light'</code> | Built-in visual theme |
+| <code>placeholder</code> | <code>string</code> | <code>'Add a new tag...'</code> | Input placeholder |
+| <code>hintText</code> | <code>ReactNode</code> | <code>'Press Enter to add a tag'</code> | Focus helper text |
+| <code>separators</code> | <code>string[]</code> | <code>['Enter', ',']</code> | Keys that create tags |
+| <code>maxTags</code> | <code>number</code> | — | Maximum number of tags |
+| <code>allowDuplicates</code> | <code>boolean</code> | <code>false</code> | Allow duplicate tags |
+| <code>normalizeTag</code> | <code>(tag: string) =&gt; string</code> | — | Normalizes tags before validation |
+| <code>validateTag</code> | <code>(tag: string) =&gt; boolean or string</code> | — | Validates tags |
+| <code>onInvalidTag</code> | <code>(tag, reason?) =&gt; void</code> | — | Called for validation failures |
+| <code>onTagAdd</code> | <code>(tag, index) =&gt; void</code> | — | Called after a tag is added |
+| <code>onTagRemove</code> | <code>(tag, index) =&gt; void</code> | — | Called after a tag is removed |
+| <code>acceptOnBlur</code> | <code>boolean</code> | <code>false</code> | Add current input on blur |
+| <code>clearable</code> | <code>boolean</code> | <code>false</code> | Show clear-all button |
+| <code>clearIcon</code> | <code>ReactNode</code> | built-in SVG | Custom clear icon |
+| <code>onClear</code> | <code>() =&gt; void</code> | — | Called after clearing all tags |
+| <code>tagIcon</code> | <code>ReactNode</code> | built-in SVG | Custom tag icon |
+| <code>removeIcon</code> | <code>ReactNode</code> | built-in SVG | Custom remove icon |
+| <code>removeButtonProps</code> | button attributes | — | Additional remove-button attributes |
+| <code>readOnly</code> | native input prop | <code>false</code> | Prevent tag editing |
+| <code>disabled</code> | native input prop | <code>false</code> | Disable interaction |
+| <code>ref</code> | <code>Ref&lt;HTMLInputElement&gt;</code> | — | Ref to the native input |
+
+<code>SimpleTagInput</code> also accepts standard <code>InputHTMLAttributes&lt;HTMLInputElement&gt;</code> props unless they conflict with the controlled <code>value</code> and tag-level <code>onChange</code> API.
+
+### <code>value</code> and <code>onChange</code>
+
+~~~ts
 value: string[]
-```
+onChange: (tags: string[]) => void
+~~~
 
-The current controlled list of tags.
+<code>value</code> is the source of truth. <code>onChange</code> is called whenever the list changes, and the component does not mutate the existing array.
 
-```tsx
+~~~tsx
 const [tags, setTags] = useState<string[]>([
     'React',
     'Next.js',
@@ -131,72 +222,27 @@ const [tags, setTags] = useState<string[]>([
     value={tags}
     onChange={setTags}
 />
-```
+~~~
 
-This is the source of truth for the component.
+### <code>direction</code>
 
----
-
-### `onChange`
-
-```ts
-onChange: (tags: string[]) => void
-```
-
-Called whenever the tag list changes.
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-/>
-```
-
-The component does not mutate the existing array.
-
----
-
-### `direction`
-
-```ts
+~~~ts
 direction?: 'ltr' | 'rtl'
-```
+~~~
 
-Controls the text direction of the component.
+Controls text direction. Use <code>rtl</code> for Persian, Arabic, Hebrew, and other right-to-left interfaces.
 
-Default:
-
-```ts
-direction = 'ltr'
-```
-
-LTR:
-
-```tsx
-<SimpleTagInput
-    direction="ltr"
-    value={tags}
-    onChange={setTags}
-/>
-```
-
-RTL:
-
-```tsx
+~~~tsx
 <SimpleTagInput
     direction="rtl"
     value={tags}
     onChange={setTags}
 />
-```
+~~~
 
-Useful for Persian, Arabic, Hebrew, and other RTL interfaces.
+### <code>theme</code>
 
----
-
-### `theme`
-
-```ts
+~~~ts
 theme?:
     | 'default'
     | 'light'
@@ -206,528 +252,199 @@ theme?:
     | 'corporate'
     | 'retro'
     | 'dracula'
-```
+~~~
 
-Changes the built-in visual theme.
+<code>default</code> is a backward-compatible alias of <code>light</code>. The default theme is <code>light</code>.
 
-Default:
-
-```ts
-theme = 'light'
-```
-
-Examples:
-
-```tsx
-<SimpleTagInput
-    theme="light"
-    value={tags}
-    onChange={setTags}
-/>
-```
-
-```tsx
-<SimpleTagInput
-    theme="dark"
-    value={tags}
-    onChange={setTags}
-/>
-```
-
-```tsx
+~~~tsx
 <SimpleTagInput
     theme="dracula"
     value={tags}
     onChange={setTags}
 />
-```
+~~~
 
-Available themes:
+### <code>placeholder</code> and <code>hintText</code>
 
-- `default` — backward-compatible alias of `light`
-- `light`
-- `dark`
-- `cupcake`
-- `emerald`
-- `corporate`
-- `retro`
-- `dracula`
-
----
-
-### `placeholder`
-
-```ts
+~~~ts
 placeholder?: string
-```
+hintText?: ReactNode
+~~~
 
-Placeholder displayed inside the input.
+The placeholder appears inside the input. <code>hintText</code> is rendered in the helper area while the component is focused.
 
-Default:
-
-```text
-Add a new tag...
-```
-
-Example:
-
-```tsx
+~~~tsx
 <SimpleTagInput
     placeholder="Add technology..."
-    value={tags}
-    onChange={setTags}
-/>
-```
-
----
-
-### `hintText`
-
-```ts
-hintText?: ReactNode
-```
-
-Content displayed in the helper area below the input when the component is focused.
-
-Default:
-
-```text
-Press Enter to add a tag
-```
-
-Example:
-
-```tsx
-<SimpleTagInput
     hintText="Press Enter or comma to add a tag"
     value={tags}
     onChange={setTags}
 />
-```
+~~~
 
-It also accepts JSX:
+<code>hintText</code> also accepts JSX:
 
-```tsx
+~~~tsx
 <SimpleTagInput
     hintText={<span>Add your technology tags</span>}
     value={tags}
     onChange={setTags}
 />
-```
+~~~
 
----
+### <code>separators</code>
 
-### `separators`
-
-```ts
+~~~ts
 separators?: string[]
-```
+~~~
 
-Defines which keyboard keys should create a tag.
+Defines which <code>KeyboardEvent.key</code> values create a tag. The default is <code>['Enter', ',']</code>.
 
-Default:
+~~~tsx
+<SimpleTagInput separators={['Enter']} value={tags} onChange={setTags} />
+<SimpleTagInput separators={['Enter', 'Tab']} value={tags} onChange={setTags} />
+<SimpleTagInput separators={['Enter', ';']} value={tags} onChange={setTags} />
+~~~
 
-```ts
-['Enter', ',']
-```
+### <code>maxTags</code> and <code>allowDuplicates</code>
 
-Example — Enter only:
-
-```tsx
-<SimpleTagInput
-    separators={['Enter']}
-    value={tags}
-    onChange={setTags}
-/>
-```
-
-Example — Enter and Tab:
-
-```tsx
-<SimpleTagInput
-    separators={['Enter', 'Tab']}
-    value={tags}
-    onChange={setTags}
-/>
-```
-
-Example — semicolon instead of comma:
-
-```tsx
-<SimpleTagInput
-    separators={['Enter', ';']}
-    value={tags}
-    onChange={setTags}
-/>
-```
-
-The values correspond to `KeyboardEvent.key` values. For example, the Enter key is `'Enter'`, while a comma is `','`.
-
----
-
-### `maxTags`
-
-```ts
+~~~ts
 maxTags?: number
-```
-
-Limits the maximum number of tags that can be added.
-
-```tsx
-<SimpleTagInput
-    maxTags={5}
-    value={tags}
-    onChange={setTags}
-/>
-```
-
-Once the limit is reached, additional tags are ignored.
-
-Existing tags are never removed automatically.
-
----
-
-### `allowDuplicates`
-
-```ts
 allowDuplicates?: boolean
-```
+~~~
 
-Controls whether duplicate tags are allowed.
+<code>maxTags</code> ignores additional tags after the limit is reached; existing tags are never removed automatically. <code>allowDuplicates</code> defaults to <code>false</code> and controls whether an already-present tag can be added again.
 
-Default:
-
-```ts
-allowDuplicates = false
-```
-
-Duplicates disabled:
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
+    maxTags={5}
     allowDuplicates={false}
 />
-```
+~~~
 
-Duplicates enabled:
+With duplicates disabled, adding <code>React</code>, <code>React</code>, and <code>React</code> produces one tag. With <code>allowDuplicates</code> enabled, all three can be added.
 
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    allowDuplicates
-/>
-```
+### <code>normalizeTag</code>
 
-With `allowDuplicates={false}`:
-
-```text
-React
-React
-React
-```
-
-results in one `React` tag.
-
-With `allowDuplicates` enabled, all three can be added.
-
----
-
-### `normalizeTag`
-
-```ts
+~~~ts
 normalizeTag?: (tag: string) => string
-```
+~~~
 
-Transforms a tag before it is validated and added.
+Transforms a tag before validation and duplicate checking. This is useful for trimming or normalizing case:
 
-Example — trim and lowercase:
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
     normalizeTag={tag => tag.trim().toLowerCase()}
 />
-```
+~~~
 
-Input:
+Input <code>  REACT</code> becomes <code>react</code>. With <code>allowDuplicates={false}</code>, <code>React</code>, <code>react</code>, and <code>REACT</code> are treated as the same tag when using <code>tag =&gt; tag.toLowerCase()</code>.
 
-```text
-  REACT
-```
+### <code>validateTag</code> and <code>onInvalidTag</code>
 
-Result:
-
-```text
-react
-```
-
-Normalization happens before duplicate checking, so this also works as expected:
-
-```text
-React
-react
-REACT
-```
-
-when using:
-
-```tsx
-normalizeTag={tag => tag.toLowerCase()}
-```
-
-with `allowDuplicates={false}`.
-
----
-
-### `validateTag`
-
-```ts
+~~~ts
 validateTag?: (tag: string) => boolean | string
-```
+onInvalidTag?: (tag: string, reason?: string) => void
+~~~
 
-Validates a normalized tag before adding it.
+Validation runs after normalization. Return <code>true</code> to accept a tag, <code>false</code> to reject it without a reason, or a string to reject it and provide that reason.
 
-Return `true` to accept the tag:
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    validateTag={tag => tag.length >= 3}
-/>
-```
-
-Return `false` to reject it:
-
-```tsx
-validateTag={tag => tag.length >= 3}
-```
-
-Or return a string to reject it and provide a reason:
-
-```tsx
-validateTag={tag =>
-    tag.length >= 3
-        ? true
-        : 'Tag must contain at least 3 characters'
-}
-```
-
-Validation runs after `normalizeTag`.
-
----
-
-### `onInvalidTag`
-
-```ts
-onInvalidTag?: (
-    tag: string,
-    reason?: string,
-) => void
-```
-
-Called when `validateTag` rejects a tag.
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
     validateTag={tag =>
         tag.length >= 3
             ? true
-            : 'Tag is too short'
+            : 'Tag must contain at least 3 characters'
     }
     onInvalidTag={(tag, reason) => {
-        console.log(tag)
-        console.log(reason)
+        console.log(tag, reason)
     }}
 />
-```
+~~~
 
-For a validator returning `false`, `reason` is `undefined`.
+### <code>onTagAdd</code> and <code>onTagRemove</code>
 
-For a validator returning a string, that string is passed as the reason.
+~~~ts
+onTagAdd?: (tag: string, index: number) => void
+onTagRemove?: (tag: string, index: number) => void
+~~~
 
----
+<code>onTagAdd</code> receives the final normalized tag and its resulting index. It is not called for empty, invalid, duplicate, or max-limit-rejected tags.
 
-### `onTagAdd`
+<code>onTagRemove</code> is triggered by clicking a tag's remove button or pressing Backspace while the input is empty. Its index is the tag's index before removal.
 
-```ts
-onTagAdd?: (
-    tag: string,
-    index: number,
-) => void
-```
-
-Called only after a tag has successfully passed processing and has been added.
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
-    onTagAdd={(tag, index) => {
-        console.log('Added:', tag)
-        console.log('Index:', index)
-    }}
+    onTagAdd={(tag, index) => console.log('Added:', tag, index)}
+    onTagRemove={(tag, index) => console.log('Removed:', tag, index)}
 />
-```
+~~~
 
-The callback receives the final normalized tag and its resulting index.
+### <code>acceptOnBlur</code>
 
-It is not called for empty, invalid, duplicate, or max-limit-rejected tags.
-
----
-
-### `onTagRemove`
-
-```ts
-onTagRemove?: (
-    tag: string,
-    index: number,
-) => void
-```
-
-Called when a tag is removed.
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    onTagRemove={(tag, index) => {
-        console.log('Removed:', tag)
-        console.log('Index:', index)
-    }}
-/>
-```
-
-It is triggered by both:
-
-- clicking a tag's remove button
-- pressing Backspace while the input is empty
-
-The index represents the tag's index before removal.
-
----
-
-### `acceptOnBlur`
-
-```ts
+~~~ts
 acceptOnBlur?: boolean
-```
+~~~
 
-Automatically attempts to add the current input as a tag when the input loses focus.
+When enabled, the component attempts to add the current input when focus leaves it. The same normalization, validation, duplicate, and <code>maxTags</code> rules apply.
 
-Default:
-
-```ts
-acceptOnBlur = false
-```
-
-Example:
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
     acceptOnBlur
 />
-```
+~~~
 
-Typing:
+### <code>clearable</code>, <code>onClear</code>, and <code>clearIcon</code>
 
-```text
-React
-```
-
-and clicking outside the component adds `React` without requiring Enter.
-
-The same normalization, validation, duplicate, and `maxTags` rules are used as normal tag creation.
-
----
-
-### `clearable`
-
-```ts
+~~~ts
 clearable?: boolean
-```
-
-Shows a clear-all button when at least one tag exists.
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    clearable
-/>
-```
-
-Clicking the button calls:
-
-```ts
-onChange([])
-```
-
-Example with `onClear`:
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    clearable
-    onClear={() => {
-        console.log('All tags cleared')
-    }}
-/>
-```
-
----
-
-### `onClear`
-
-```ts
 onClear?: () => void
-```
+clearIcon?: ReactNode
+~~~
 
-Called after the clear-all action is accepted.
+<code>clearable</code> shows a clear-all button when at least one tag exists. Clicking it calls <code>onChange([])</code> and then <code>onClear</code>, if provided. The clear action is disabled in read-only and disabled modes.
 
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
     clearable
-    onClear={() => console.log('Cleared')}
+    onClear={() => console.log('All tags cleared')}
+    clearIcon={<span aria-hidden="true">×</span>}
 />
-```
+~~~
 
----
+### <code>tagIcon</code> and <code>removeIcon</code>
 
-### `tagIcon`
-
-```ts
+~~~ts
 tagIcon?: ReactNode
-```
+removeIcon?: ReactNode
+~~~
 
-Replaces the built-in tag icon.
+Both props accept any React node. A runtime icon dependency is not required by <code>taglite</code>.
 
-```tsx
-import { Hash } from 'lucide-react'
-
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
-    tagIcon={<Hash className="size-3" />}
+    tagIcon={<span aria-hidden="true">#</span>}
+    removeIcon={<span aria-hidden="true">×</span>}
 />
-```
+~~~
 
-A runtime icon dependency is not required by `taglite`; the example above only demonstrates that any React node can be supplied.
+You can also provide your own SVG:
 
-You can also use your own SVG:
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
@@ -737,61 +454,20 @@ You can also use your own SVG:
         </svg>
     }
 />
-```
+~~~
 
----
+### <code>removeButtonProps</code>
 
-### `removeIcon`
-
-```ts
-removeIcon?: ReactNode
-```
-
-Replaces the default remove icon inside every tag.
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    removeIcon={<span aria-hidden="true">×</span>}
-/>
-```
-
----
-
-### `clearIcon`
-
-```ts
-clearIcon?: ReactNode
-```
-
-Replaces the built-in clear-all icon.
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    clearable
-    clearIcon={<span aria-hidden="true">×</span>}
-/>
-```
-
----
-
-### `removeButtonProps`
-
-```ts
+~~~ts
 removeButtonProps?: {
     className?: string
     [key: string]: unknown
 }
-```
+~~~
 
-Provides additional attributes for the remove buttons rendered inside tags.
+Adds attributes to the remove buttons rendered inside tags. <code>taglite</code> keeps control of the button type, click handler, disabled state, and core behavior.
 
-Example:
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
@@ -800,66 +476,31 @@ Example:
         className: 'text-red-500',
     }}
 />
-```
+~~~
 
-The component keeps control over the button's type, click handler, disabled state, and core behavior.
+## Read-only, disabled, and native input props
 
----
+### <code>readOnly</code>
 
-## `readOnly`
+<code>readOnly</code> is inherited from native input attributes. In read-only mode, new tags cannot be added, existing tags cannot be removed, Backspace and blur do not modify tags, and clear-all is disabled. The input can still be focused.
 
-`readOnly` is inherited from the native input attributes.
+~~~tsx
+<SimpleTagInput value={tags} onChange={setTags} readOnly />
+~~~
 
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    readOnly
-/>
-```
+### <code>disabled</code>
 
-In read-only mode:
+In disabled mode, the input, tag actions, clear-all action, and keyboard tag actions are disabled. The component does not force focus onto the disabled input.
 
-- new tags cannot be added
-- existing tags cannot be removed
-- Backspace does not remove the last tag
-- blur does not add a tag
-- the clear-all action is disabled
+~~~tsx
+<SimpleTagInput value={tags} onChange={setTags} disabled />
+~~~
 
-The input can still be focused.
+### Native input attributes
 
----
+<code>SimpleTagInput</code> extends <code>InputHTMLAttributes&lt;HTMLInputElement&gt;</code>, so standard attributes are supported unless they conflict with the controlled tag API.
 
-## `disabled`
-
-`disabled` is inherited from the native input attributes.
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    disabled
-/>
-```
-
-In disabled mode:
-
-- the input is disabled
-- tags cannot be added
-- tags cannot be removed
-- clear-all is disabled
-- keyboard tag actions are disabled
-- the component does not force focus onto the disabled input
-
----
-
-## Native Input Props
-
-`SimpleTagInput` extends `InputHTMLAttributes<HTMLInputElement>`, so standard input attributes are supported unless they conflict with the controlled tag API.
-
-Examples:
-
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
@@ -869,22 +510,15 @@ Examples:
     autoFocus
     required
 />
-```
+~~~
 
-The following are intentionally controlled by `SimpleTagInput` and are not treated as native input values:
+The component intentionally controls <code>value</code> and <code>onChange</code> as its tag-list API.
 
-```ts
-value
-onChange
-```
+## Forwarded ref
 
----
+The component forwards its ref directly to the underlying native <code>&lt;input&gt;</code> element. This is useful for forms, dialogs, keyboard shortcuts, and programmatic focus management.
 
-## Forwarded Ref
-
-The component forwards its ref directly to the underlying native `<input>` element.
-
-```tsx
+~~~tsx
 import { useRef } from 'react'
 import { SimpleTagInput } from 'taglite'
 
@@ -908,128 +542,13 @@ export default function Example() {
         </>
     )
 }
-```
+~~~
 
-This is useful for forms, dialogs, keyboard shortcuts, and programmatic focus management.
-
----
-
-## Paste Multiple Tags
-
-Pasting delimited text can create multiple tags at once.
-
-Example input:
-
-```text
-React, Next.js, TypeScript
-```
-
-results in:
-
-```ts
-['React', 'Next.js', 'TypeScript']
-```
-
-Newline-separated text is also supported:
-
-```text
-React
-Next.js
-TypeScript
-```
-
-Multiple lines and commas can be mixed:
-
-```text
-React, Next.js
-TypeScript, Tailwind CSS
-```
-
-The same processing pipeline is used for pasted tags:
-
-```text
-normalize → validate → duplicate check → maxTags → onChange
-```
-
-Example with normalization:
-
-```tsx
-<SimpleTagInput
-    value={tags}
-    onChange={setTags}
-    normalizeTag={tag => tag.trim().toLowerCase()}
-/>
-```
-
-Pasting:
-
-```text
- React, NEXT.JS, TypeScript
-```
-
-produces:
-
-```ts
-['react', 'next.js', 'typescript']
-```
-
----
-
-## Combining Features
-
-A more complete example:
-
-```tsx
-import { useState } from 'react'
-import { SimpleTagInput } from 'taglite'
-
-export default function Example() {
-    const [tags, setTags] = useState<string[]>([])
-
-    return (
-        <SimpleTagInput
-            value={tags}
-            onChange={setTags}
-            placeholder="Add a technology..."
-            hintText="Enter, comma, or paste multiple tags"
-            separators={['Enter', ',']}
-            maxTags={8}
-            allowDuplicates={false}
-            normalizeTag={tag =>
-                tag.trim().toLowerCase()
-            }
-            validateTag={tag =>
-                tag.length >= 2
-                    ? true
-                    : 'Tag must contain at least 2 characters'
-            }
-            onInvalidTag={(tag, reason) => {
-                console.log('Invalid tag:', tag, reason)
-            }}
-            onTagAdd={(tag, index) => {
-                console.log('Added:', tag, index)
-            }}
-            onTagRemove={(tag, index) => {
-                console.log('Removed:', tag, index)
-            }}
-            acceptOnBlur
-            clearable
-            onClear={() => {
-                console.log('All tags cleared')
-            }}
-            theme="dark"
-        />
-    )
-}
-```
-
----
-
-## Common Patterns
+## Common patterns
 
 ### Technology tags
 
-```tsx
+~~~tsx
 <SimpleTagInput
     value={technologies}
     onChange={setTechnologies}
@@ -1037,22 +556,22 @@ export default function Example() {
     normalizeTag={tag => tag.trim()}
     maxTags={10}
 />
-```
+~~~
 
 ### Product keywords
 
-```tsx
+~~~tsx
 <SimpleTagInput
     value={keywords}
     onChange={setKeywords}
     placeholder="Add keyword..."
     allowDuplicates={false}
 />
-```
+~~~
 
 ### RTL / Persian
 
-```tsx
+~~~tsx
 <SimpleTagInput
     direction="rtl"
     theme="light"
@@ -1061,11 +580,11 @@ export default function Example() {
     placeholder="برچسب جدید..."
     hintText="برای افزودن برچسب Enter را بزنید"
 />
-```
+~~~
 
 ### Strict validation
 
-```tsx
+~~~tsx
 <SimpleTagInput
     value={tags}
     onChange={setTags}
@@ -1075,29 +594,45 @@ export default function Example() {
             : 'Only letters, numbers, and hyphens are allowed'
     }
 />
-```
-
----
+~~~
 
 ## Accessibility
 
-The component uses native HTML controls and provides accessible labeling for tag removal buttons.
+The component uses native HTML controls and provides accessible labels for tag removal buttons. The default remove button receives a label based on the tag name, such as:
 
-For example, the default remove button receives an accessible label based on the tag name.
-
-```text
+~~~text
 Remove tag React
-```
+~~~
 
-When replacing icons with custom React nodes, keep decorative icons `aria-hidden` when the icon itself does not provide information.
+When replacing icons with custom React nodes, keep decorative icons <code>aria-hidden</code> when the icon itself does not provide information. For form-level labels, descriptions, and validation messages, use your application's surrounding form or field structure rather than duplicating field abstractions inside <code>SimpleTagInput</code>.
 
-For form-level labels, descriptions, and validation messages, use your application's form/field structure around the component rather than duplicating field abstractions inside `SimpleTagInput`.
+## TypeScript
 
----
+The package exposes its public component and theme types:
 
-## Performance
+~~~tsx
+import {
+    SimpleTagInput,
+    type SimpleTagInputProps,
+    type SimpleTagInputTheme,
+} from 'taglite'
+~~~
 
-`taglite` is designed to stay small and lightweight:
+~~~ts
+const theme: SimpleTagInputTheme = 'dracula'
+
+const props: SimpleTagInputProps = {
+    value: [],
+    onChange: tags => {
+        console.log(tags)
+    },
+    theme,
+}
+~~~
+
+## Performance notes
+
+<code>taglite</code> is designed to stay small and lightweight:
 
 - no runtime dependencies
 - inline SVG icons instead of an icon package
@@ -1108,87 +643,32 @@ For form-level labels, descriptions, and validation messages, use your applicati
 - no animation library
 - no built-in network or asynchronous logic
 
-For large tag collections, keep the `value` reference stable when the tags themselves have not changed.
+For large tag collections, keep the <code>value</code> reference stable when the tags themselves have not changed.
 
----
+## Development
 
-## TypeScript
+Clone the repository, install dependencies, and start the Vite development server:
 
-The package is designed for TypeScript projects and exposes its public types.
+~~~bash
+npm install
+npm run dev
+~~~
 
-```tsx
-import {
-    SimpleTagInput,
-    type SimpleTagInputProps,
-    type SimpleTagInputTheme,
-} from 'taglite'
-```
+Available scripts:
 
-Example:
+| Command | Purpose |
+| --- | --- |
+| <code>npm run dev</code> | Start the Vite dev server with HMR |
+| <code>npm run build</code> | Type-check and create the production app bundle |
+| <code>npm run build:lib</code> | Build the distributable library and declaration files |
+| <code>npm run lint</code> | Run ESLint across the repository |
+| <code>npm run preview</code> | Preview the production build locally |
 
-```ts
-const theme: SimpleTagInputTheme = 'dracula'
+There is currently no automated test runner or <code>npm test</code> script. When behavior grows beyond manual verification, add focused component tests covering tag creation with Enter/comma, duplicate handling, removal, keyboard behavior, focus states, and each supported theme.
 
-const props: SimpleTagInputProps = {
-    value: [],
-    onChange: tags => {
-        console.log(tags)
-    },
-    theme,
-}
-```
+## Design philosophy
 
----
-
-## API Summary
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `value` | `string[]` | required | Controlled tag list |
-| `onChange` | `(tags: string[]) => void` | required | Called when tags change |
-| `direction` | `'ltr' \| 'rtl'` | `'ltr'` | Text direction |
-| `theme` | `SimpleTagInputTheme` | `'light'` | Built-in visual theme |
-| `placeholder` | `string` | `'Add a new tag...'` | Input placeholder |
-| `hintText` | `ReactNode` | `'Press Enter to add a tag'` | Focus helper text |
-| `separators` | `string[]` | `['Enter', ',']` | Keys that create tags |
-| `maxTags` | `number` | — | Maximum number of tags |
-| `allowDuplicates` | `boolean` | `false` | Allow duplicate tags |
-| `normalizeTag` | `(tag: string) => string` | — | Normalizes tags before validation |
-| `validateTag` | `(tag: string) => boolean \| string` | — | Validates tags |
-| `onInvalidTag` | `(tag, reason?) => void` | — | Called for validation failures |
-| `onTagAdd` | `(tag, index) => void` | — | Called after a tag is added |
-| `onTagRemove` | `(tag, index) => void` | — | Called after a tag is removed |
-| `acceptOnBlur` | `boolean` | `false` | Add current input on blur |
-| `clearable` | `boolean` | `false` | Show clear-all button |
-| `clearIcon` | `ReactNode` | built-in SVG | Custom clear icon |
-| `onClear` | `() => void` | — | Called after clearing all tags |
-| `tagIcon` | `ReactNode` | built-in SVG | Custom tag icon |
-| `removeIcon` | `ReactNode` | built-in SVG | Custom remove icon |
-| `removeButtonProps` | button attributes | — | Additional remove-button attributes |
-| `readOnly` | native input prop | `false` | Prevent tag editing |
-| `disabled` | native input prop | `false` | Disable interaction |
-| `ref` | `Ref<HTMLInputElement>` | — | Ref to the native input |
-
-### Native input attributes
-
-The component also accepts the standard `InputHTMLAttributes<HTMLInputElement>` props, excluding the controlled `value` and tag-level `onChange` API.
-
----
-
-## Design Philosophy
-
-`SimpleTagInput` intentionally focuses on the core tag-input experience instead of becoming a full autocomplete or drag-and-drop system.
-
-The goal is a small component with:
-
-- a simple API
-- zero runtime dependencies
-- predictable controlled behavior
-- useful customization hooks
-- good keyboard and paste support
-- minimal runtime overhead
-
----
+<code>SimpleTagInput</code> focuses on the core tag-input experience instead of becoming a full autocomplete or drag-and-drop system. The goal is a small component with a simple API, predictable controlled behavior, useful customization hooks, good keyboard and paste support, and minimal runtime overhead.
 
 ## License
 
