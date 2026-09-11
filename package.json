@@ -1,6 +1,6 @@
 {
   "name": "taglite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A lightweight, dependency-free React tag input component.",
   "keywords": [
     "react",
