@@ -20,13 +20,9 @@
 
 </div>
 
-`taglite` is a controlled React tag input built to stay simple, clean, and lightweight, with zero runtime dependencies and a TypeScript-first API.
+`taglite` is a lightweight, controlled React tag input with a simple TypeScript-first API and zero runtime dependencies.
 
-## Why taglite?
-
-The goal is simple: **keep it easy to use without adding unnecessary complexity or weight.**
-
-New features may be added over time, but only when they add real value without making `taglite` harder to use.
+Simple, clean, and easy to use — without unnecessary complexity.
 
 ## Built-in themes
 
