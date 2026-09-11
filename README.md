@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**A lightweight, dependency-free React tag input with a focused API and flexible interactions.**
+**A lightweight, dependency-free React tag input with a simple API and flexible interactions.**
 
 [![npm version](https://img.shields.io/npm/v/taglite?style=flat-square&color=cb3837)](https://www.npmjs.com/package/taglite)
 [![npm downloads](https://img.shields.io/npm/dm/taglite?style=flat-square&color=blue)](https://www.npmjs.com/package/taglite)
@@ -20,15 +20,13 @@
 
 </div>
 
-<code>taglite</code> is a controlled React component for collecting, validating, normalizing, and removing tags. It has zero runtime dependencies, ships with TypeScript types, and supports keyboard-first workflows without imposing an autocomplete or form framework.
+`taglite` is a controlled React tag input built to stay simple, clean, and lightweight, with zero runtime dependencies and a TypeScript-first API.
 
 ## Why taglite?
 
-- **Small by default** — zero runtime dependencies and no animation or icon libraries.
-- **Controlled and predictable** — the parent owns the tag array through <code>value</code> and <code>onChange</code>.
-- **Flexible input rules** — custom separators, duplicate handling, normalization, validation, limits, and paste parsing.
-- **Ready for real interfaces** — built-in themes, RTL support, read-only and disabled states, native input attributes, and forwarded refs.
-- **Easy to extend** — custom tag, remove, and clear icons plus lifecycle callbacks for additions, removals, invalid tags, and clearing.
+The goal is simple: **keep it easy to use without adding unnecessary complexity or weight.**
+
+New features may be added over time, but only when they add real value without making `taglite` harder to use.
 
 ## Built-in themes
 

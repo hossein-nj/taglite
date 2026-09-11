@@ -4,10 +4,15 @@
   "description": "A lightweight, dependency-free React tag input component.",
   "keywords": [
     "react",
+    "react-tag-input",
     "tag-input",
     "tags-input",
+    "taginput",
+    "tagsinput",
+    "react-tags-input",
     "typescript",
-    "component"
+    "tag-component",
+    "tags-component"
   ],
   "homepage": "https://github.com/hossein-nj/taglite#readme",
   "repository": {
