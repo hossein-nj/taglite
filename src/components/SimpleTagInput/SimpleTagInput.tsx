@@ -72,7 +72,8 @@ const lightTheme: ThemeVariables = {
     radius: '1rem',
     tagRadius: '1rem',
 
-    shadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+    shadow:
+        '0 1px 2px rgba(0, 0, 0, 0.03)',
     focusShadow:
         '0 0 0 3px rgba(17, 24, 39, 0.10)',
 }
@@ -109,7 +110,8 @@ const themes: Record<
         radius: '1rem',
         tagRadius: '1rem',
 
-        shadow: '0 1px 2px rgba(0, 0, 0, 0.30)',
+        shadow:
+            '0 1px 2px rgba(0, 0, 0, 0.30)',
         focusShadow:
             '0 0 0 3px rgba(249, 250, 251, 0.10)',
     },
@@ -275,7 +277,8 @@ function createThemeStyle(
 ): CSSProperties {
     return {
         '--pti-background': theme.background,
-        '--pti-background-hover': theme.backgroundHover,
+        '--pti-background-hover':
+            theme.backgroundHover,
 
         '--pti-border': theme.border,
         '--pti-border-focus': theme.borderFocus,
@@ -285,7 +288,8 @@ function createThemeStyle(
         '--pti-placeholder': theme.placeholder,
         '--pti-muted-text': theme.mutedText,
 
-        '--pti-tag-background': theme.tagBackground,
+        '--pti-tag-background':
+            theme.tagBackground,
         '--pti-tag-border': theme.tagBorder,
         '--pti-tag-text': theme.tagText,
         '--pti-tag-hover-background':
@@ -293,7 +297,8 @@ function createThemeStyle(
         '--pti-tag-hover-border':
             theme.tagHoverBorder,
 
-        '--pti-remove-text': theme.removeText,
+        '--pti-remove-text':
+            theme.removeText,
         '--pti-remove-hover-background':
             theme.removeHoverBackground,
         '--pti-remove-hover-text':
@@ -303,7 +308,8 @@ function createThemeStyle(
         '--pti-tag-radius': theme.tagRadius,
 
         '--pti-shadow': theme.shadow,
-        '--pti-focus-shadow': theme.focusShadow,
+        '--pti-focus-shadow':
+            theme.focusShadow,
     } as CSSProperties
 }
 
@@ -319,6 +325,105 @@ const themeStyles: Record<
     corporate: createThemeStyle(themes.corporate),
     retro: createThemeStyle(themes.retro),
     dracula: createThemeStyle(themes.dracula),
+}
+
+/*
+ * Creates a color derived from the user's accent color
+ * while preserving the selected theme as the base.
+ *
+ * Example:
+ * accentColor = '#7B61E8'
+ *
+ * The returned values are used by the existing CSS
+ * variables, so no CSS structure needs to change.
+ */
+function createAccentThemeStyle(
+    theme: ThemeVariables,
+    accentColor: string,
+): CSSProperties {
+    const mix = (
+        accentPercentage: number,
+        baseColor: string,
+    ) =>
+        `color-mix(in srgb, ${accentColor} ${accentPercentage}%, ${baseColor})`
+
+    return {
+        ...createThemeStyle(theme),
+
+        '--pti-background': mix(
+            3,
+            theme.background,
+        ),
+
+        '--pti-background-hover': mix(
+            5,
+            theme.backgroundHover,
+        ),
+
+        '--pti-border': mix(
+            25,
+            theme.border,
+        ),
+
+        '--pti-border-focus': accentColor,
+
+        '--pti-ring':
+            `color-mix(in srgb, ${accentColor} 18%, transparent)`,
+
+        '--pti-tag-background': mix(
+            12,
+            theme.background,
+        ),
+
+        '--pti-tag-border': mix(
+            38,
+            theme.border,
+        ),
+
+        '--pti-tag-text': mix(
+            82,
+            accentColor,
+        ),
+
+        '--pti-tag-hover-background': mix(
+            18,
+            theme.backgroundHover,
+        ),
+
+        '--pti-tag-hover-border': mix(
+            55,
+            theme.border,
+        ),
+
+        '--pti-remove-text': mix(
+            72,
+            accentColor,
+        ),
+
+        '--pti-remove-hover-background': mix(
+            20,
+            theme.background,
+        ),
+
+        '--pti-remove-hover-text': accentColor,
+
+        '--pti-focus-shadow':
+            `0 0 0 3px color-mix(in srgb, ${accentColor} 18%, transparent)`,
+    } as CSSProperties
+}
+
+function getThemeStyle(
+    theme: SimpleTagInputTheme,
+    accentColor?: string,
+): CSSProperties {
+    if (!accentColor) {
+        return themeStyles[theme]
+    }
+
+    return createAccentThemeStyle(
+        themes[theme],
+        accentColor,
+    )
 }
 
 function TagIcon(props: IconProps) {
@@ -441,7 +546,9 @@ const TagList = memo(function TagList({
                     <button
                         type='button'
                         aria-label={
-                            removeButtonProps?.['aria-label'] ??
+                            removeButtonProps?.[
+                                'aria-label'
+                            ] ??
                             `Remove tag ${tag}`
                         }
                         {...removeButtonProps}
@@ -452,7 +559,10 @@ const TagList = memo(function TagList({
                             event.stopPropagation()
                             removeTag(index)
                         }}
-                        className={`taglite-remove-button ${removeButtonProps?.className ?? ''}`}
+                        className={`taglite-remove-button ${
+                            removeButtonProps?.className ??
+                            ''
+                        }`}
                     >
                         {removeIcon ?? (
                             <RemoveIcon className='taglite-remove-icon' />
@@ -537,7 +647,8 @@ const splitPastedTags = (
             .map(tag => tag.trim())
             .filter(Boolean),
 
-        hasSeparator: separatorRegex.test(text),
+        hasSeparator:
+            separatorRegex.test(text),
     }
 }
 
@@ -561,6 +672,7 @@ export default forwardRef<
 
         direction = 'ltr',
         theme = 'light',
+        accentColor,
 
         tagIcon,
         removeIcon,
@@ -614,7 +726,8 @@ export default forwardRef<
         inputRef.current = node
 
         if (
-            typeof forwardedRef === 'function'
+            typeof forwardedRef ===
+            'function'
         ) {
             forwardedRef(node)
         } else if (forwardedRef) {
@@ -653,7 +766,9 @@ export default forwardRef<
 
         const existingTags = normalizeTag
             ? new Set(
-                value.map(tag => normalize(tag)),
+                value.map(tag =>
+                    normalize(tag),
+                ),
             )
             : new Set(value)
 
@@ -674,7 +789,9 @@ export default forwardRef<
 
             if (validateTag) {
                 const validationResult =
-                    validateTag(normalizedTag)
+                    validateTag(
+                        normalizedTag,
+                    )
 
                 if (
                     validationResult !== true
@@ -693,7 +810,9 @@ export default forwardRef<
 
             if (
                 !allowDuplicates &&
-                existingTags.has(normalizedTag)
+                existingTags.has(
+                    normalizedTag,
+                )
             ) {
                 continue
             }
@@ -733,7 +852,9 @@ export default forwardRef<
     const handleInputChange = (
         event: ChangeEvent<HTMLInputElement>,
     ) => {
-        setInputValue(event.target.value)
+        setInputValue(
+            event.target.value,
+        )
     }
 
     const handleKeyDown = (
@@ -759,13 +880,21 @@ export default forwardRef<
             !inputValue &&
             value.length > 0
         ) {
-            const index = value.length - 1
+            const index =
+                value.length - 1
+
             const tag = value[index]
 
             event.preventDefault()
 
-            onChange(value.slice(0, -1))
-            onTagRemove?.(tag, index)
+            onChange(
+                value.slice(0, -1),
+            )
+
+            onTagRemove?.(
+                tag,
+                index,
+            )
 
             inputOnKeyDown?.(event)
 
@@ -783,7 +912,9 @@ export default forwardRef<
             !readOnly
         ) {
             const text =
-                event.clipboardData.getData('text')
+                event.clipboardData.getData(
+                    'text',
+                )
 
             const {
                 tags,
@@ -843,8 +974,15 @@ export default forwardRef<
     return (
         <div
             dir={direction}
-            style={themeStyles[theme]}
-            className={`taglite-root ${disabled ? 'taglite-root--disabled' : ''} ${className}`}
+            style={getThemeStyle(
+                theme,
+                accentColor,
+            )}
+            className={`taglite-root ${
+                disabled
+                    ? 'taglite-root--disabled'
+                    : ''
+            } ${className}`}
             onClick={handleRootClick}
         >
             {/* Liquid light */}
@@ -863,7 +1001,9 @@ export default forwardRef<
                     onChange={onChange}
                     tagIcon={tagIcon}
                     removeIcon={removeIcon}
-                    onTagRemove={onTagRemove}
+                    onTagRemove={
+                        onTagRemove
+                    }
                     removeButtonProps={
                         removeButtonProps
                     }
@@ -878,8 +1018,12 @@ export default forwardRef<
                     placeholder={placeholder}
                     disabled={disabled}
                     readOnly={readOnly}
-                    onChange={handleInputChange}
-                    onKeyDown={handleKeyDown}
+                    onChange={
+                        handleInputChange
+                    }
+                    onKeyDown={
+                        handleKeyDown
+                    }
                     onPaste={handlePaste}
                     onBlur={handleBlur}
                     className='taglite-input'
@@ -893,7 +1037,8 @@ export default forwardRef<
                         type='button'
                         aria-label='Clear all tags'
                         disabled={
-                            disabled || readOnly
+                            disabled ||
+                            readOnly
                         }
                         onClick={event => {
                             event.stopPropagation()
@@ -907,9 +1052,7 @@ export default forwardRef<
                     </button>
                 )}
 
-            <div
-                className='taglite-hint'
-            >
+            <div className='taglite-hint'>
                 {hintText}
             </div>
         </div>

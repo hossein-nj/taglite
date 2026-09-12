@@ -180,6 +180,7 @@ export default function Example() {
 | <code>onChange</code> | <code>(tags: string[]) =&gt; void</code> | required | Called when tags change |
 | <code>direction</code> | <code>'ltr' or 'rtl'</code> | <code>'ltr'</code> | Text direction |
 | <code>theme</code> | <code>SimpleTagInputTheme</code> | <code>'light'</code> | Built-in visual theme |
+| <code>accentColor</code> | <code>string</code> | — | Custom accent color while preserving the selected theme |
 | <code>placeholder</code> | <code>string</code> | <code>'Add a new tag...'</code> | Input placeholder |
 | <code>hintText</code> | <code>ReactNode</code> | <code>'Press Enter to add a tag'</code> | Focus helper text |
 | <code>separators</code> | <code>string[]</code> | <code>['Enter', ',']</code> | Keys that create tags |
@@ -263,6 +264,47 @@ theme?:
     onChange={setTags}
 />
 ~~~
+
+### <code>accentColor</code>
+
+~~~ts
+accentColor?: string
+~~~
+
+Sets a custom accent color for the component while preserving the selected theme as the base design.
+
+The color is used to automatically derive related UI colors such as focus states, borders, tags, hover states, and action colors.
+
+~~~tsx
+<SimpleTagInput
+    value={tags}
+    onChange={setTags}
+    accentColor="#7B61E8"
+/>
+~~~
+
+You can use any valid CSS color value, including hex, RGB, RGBA, and HSL:
+
+~~~tsx
+<SimpleTagInput
+    value={tags}
+    onChange={setTags}
+    accentColor="rgb(123, 97, 232)"
+/>
+~~~
+
+`accentColor` can also be combined with any built-in theme. In this case, the selected theme remains the base design while `accentColor` overrides its accent colors.
+
+~~~tsx
+<SimpleTagInput
+    value={tags}
+    onChange={setTags}
+    theme="dark"
+    accentColor="#7B61E8"
+/>
+~~~
+
+For example, the combination above uses the `dark` theme with a custom purple accent.
 
 ### <code>placeholder</code> and <code>hintText</code>
 

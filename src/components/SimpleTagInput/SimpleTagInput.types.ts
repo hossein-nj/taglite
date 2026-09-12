@@ -26,6 +26,7 @@ export interface SimpleTagInputProps
 
     direction?: 'ltr' | 'rtl'
     theme?: SimpleTagInputTheme
+    accentColor?: string
 
     placeholder?: string
     hintText?: ReactNode

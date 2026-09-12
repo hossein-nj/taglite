@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 AGENTS.md
+Notes for updates.txt
 
 # Editor directories and files
 .vscode/*
