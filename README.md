@@ -5,10 +5,10 @@
 **A lightweight, dependency-free React tag input with a focused API and flexible interactions.**
 
 [![npm version](https://img.shields.io/npm/v/taglite?style=flat-square&color=cb3837)](https://www.npmjs.com/package/taglite)
-[![npm downloads](https://img.shields.io/npm/dm/taglite?style=flat-square&color=blue)](https://www.npmjs.com/package/taglite)
 [![React](https://img.shields.io/badge/React-%3E%3D18-61dafb?style=flat-square&logo=react&logoColor=20232a)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-first-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
+[![npm downloads](https://img.shields.io/npm/dm/taglite?style=flat-square&color=green)](https://www.npmjs.com/package/taglite)
+[![Bundle Size](https://img.shields.io/badge/bundle%20size-3.1%20kB%20gzipped-orange?style=flat-square)](https://bundlephobia.com/package/taglite)
 
 <br />
 

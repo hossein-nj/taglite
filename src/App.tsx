@@ -14,26 +14,9 @@ function App() {
 
           <p className='mb-10'>React, Next js, Typescript</p>
 
-          <SimpleTagInput value={tags} onChange={setTags} />
-
           <SimpleTagInput
             value={tags}
             onChange={setTags}
-            accentColor="#7B61E8"
-          />
-
-          <SimpleTagInput
-            value={tags}
-            onChange={setTags}
-            theme="dark"
-            accentColor="#7B61E8"
-          />
-
-          <SimpleTagInput
-            value={tags}
-            onChange={setTags}
-            theme="retro"
-            accentColor="rgb(16, 185, 129)"
           />
 
         </div>
